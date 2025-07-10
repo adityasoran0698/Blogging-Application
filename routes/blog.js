@@ -77,7 +77,6 @@ router.post("/comment/:blogId", async (req, res) => {
 
 router.get(`/update/:id`, async (req, res) => {
   const blog = await Blog.findById(req.params.id);
-  console.log(blog);
   return res.render("addblog", {
     user: req.user,
     editblog: blog,

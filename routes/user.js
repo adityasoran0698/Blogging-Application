@@ -35,13 +35,19 @@ router.post("/signup", upload.single("profileImageURL"), async (req, res) => {
   const file = req.file;
   const profileImageURL = file
     ? `/profilePhotos/${fullname}-${email}/${file.filename}`
-    : undefined; // Let default apply
-  const signupdata = await User.create({
-    fullname,
-    email,
-    password,
-    profileImageURL: profileImageURL,
-  });
+    : undefined;
+  try {
+    const signupdata = await User.create({
+      fullname,
+      email,
+      password,
+      profileImageURL: profileImageURL,
+    });
+  } catch (err) {
+    return res.render("signup", {
+      error: "User Already Exist!",
+    });
+  }
 
   return res.redirect("/user/signin");
 });

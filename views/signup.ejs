@@ -10,6 +10,7 @@
             width: 100vw;
             height: calc(100vh - 143.64px);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
@@ -121,31 +122,49 @@
             color: rgba(0, 0, 0, 0.616);
 
         }
+
+        .error {
+            display: flex;
+            width: 100vw;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgb(232, 35, 35);
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 25px;
+            color: red;
+            background: linear-gradient(135deg, #FCC2BF, #F7BED5);
+        }
     </style>
 </head>
 
 <body>
     <%- include("./partials/nav") %>
-
-
-
-        <div class="container">
-            <div class="signin-form">
-                <h3>Signup</h3>
-                <form method="post" action="/user/signup" enctype="multipart/form-data">
-                    <input type="text" name="fullname" placeholder="FullName"> <br><br>
-                    <input type="text" name="email" placeholder="Email"> <br><br>
-                    <input type="password" name="password" placeholder="Password"><br><br>
-                    <div class="profile">
-                        <label class="profile-image">Profile Picture:</label>
-                        <input type="file" name="profileImageURL" class="profileImageURL">
-                    </div>
-
-                    <button type="submit">Create Account</button>
-
-                </form>
+        <% if (locals.error) { %>
+            <div class="error">
+                <%= locals.error %>
             </div>
-        </div>
+            <% } %>
+
+
+                <div class="container">
+
+                    <div class="signin-form">
+                        <h3>Signup</h3>
+                        <form method="post" action="/user/signup" enctype="multipart/form-data">
+                            <input type="text" name="fullname" placeholder="FullName"> <br><br>
+                            <input type="text" name="email" placeholder="Email"> <br><br>
+                            <input type="password" name="password" placeholder="Password"><br><br>
+                            <div class="profile">
+                                <label class="profile-image">Profile Picture:</label>
+                                <input type="file" name="profileImageURL" class="profileImageURL">
+                            </div>
+
+                            <button type="submit">Create Account</button>
+
+                        </form>
+                    </div>
+                </div>
 </body>
 
 </html>
