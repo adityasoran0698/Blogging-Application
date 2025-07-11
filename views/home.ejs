@@ -85,7 +85,7 @@
         .coverimages img {
             height: 100%;
             width: 100%;
-            object-fit:fill;
+            object-fit: fill;
             display: block;
         }
     </style>
@@ -95,22 +95,28 @@
     <div class="container">
 
         <%- include('./partials/nav') %>
-            <div class="box">
+            <% if (blogs.length===0) { %>
+                <h2 style="text-align: center; margin-top: 50px; font-size: 40px;">📝 No blogs found!</h2>
+                <h3 style="text-align: center; font-size: 37px;">Start by creating your first blog post.</h3>
 
-                <% blogs.forEach(blog=> { %>
-                    <div class="blogs">
-                        <div class="coverimages">
-                            <img src="<%= blog.coverImageURL %>" alt="" class="coverimage">
-                        </div>
+                <% } %>
+                    <div class="box">
 
 
-                        <h3>
-                            <%= blog.title %>
-                        </h3>
-                        <button type="submit"><a href="/blog/<%= blog._id %>" class="view-btn">View</a></button>
+                        <% blogs.forEach(blog=> { %>
+                            <div class="blogs">
+                                <div class="coverimages">
+                                    <img src="<%= blog.coverImageURL %>" alt="" class="coverimage">
+                                </div>
+
+
+                                <h3>
+                                    <%= blog.title %>
+                                </h3>
+                                <button type="submit"><a href="/blog/<%= blog._id %>" class="view-btn">View</a></button>
+                            </div>
+                            <% }) %>
                     </div>
-                    <% }) %>
-            </div>
     </div>
 
 </body>
