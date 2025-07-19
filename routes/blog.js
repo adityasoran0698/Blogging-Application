@@ -25,23 +25,30 @@ router.get("/add-new", (req, res) => {
     user: req.user,
   });
 });
-
 router.post("/addblogs", upload.single("coverImageURL"), async (req, res) => {
   const body = req.body;
   const file = req.file;
 
-  const blogData = await Blog.create({
-    title: body.title,
-    body: body.body,
-    createdBy: req.user._id,
-  });
-  if (file) {
-    blogData.coverImageURL = `/uploads/${req.user.fullname}-${req.user._id}/${file.filename}`;
-  }
+  try {
+    const blogData = new Blog({
+      title: body.title,
+      body: body.body,
+      createdBy: req.user._id,
+    });
 
-  await Blog.create(blogData);
-  return res.redirect("/");
+    if (file) {
+      blogData.coverImageURL = `/uploads/${req.user.fullname}-${req.user._id}/${file.filename}`;
+    }
+
+    await blogData.save();
+    return res.redirect("/");
+  } catch (err) {
+    return res.render("addblog", {
+      error: "All fields are required!",
+    });
+  }
 });
+
 router.get("/myblogs", async (req, res) => {
   const myallblog = await Blog.find({ createdBy: req.user._id });
   return res.render("myblogs", {

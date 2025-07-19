@@ -47,7 +47,6 @@
             text-align: justify;
             border-top: 1px solid black;
             padding: 10px;
-
         }
 
         .createdby {
@@ -65,7 +64,6 @@
         }
 
         .comment {
-
             width: 1000px;
         }
 
@@ -104,8 +102,6 @@
             margin-bottom: 1rem;
         }
 
-
-
         .cmmnt-profile-image {
             display: flex;
             align-items: center;
@@ -127,6 +123,47 @@
         .add-comments {
             display: flex;
             justify-content: center;
+        
+        }
+
+        @media (max-width: 1002px) {
+            .container h1 {
+                font-size: 26px;
+                padding: 0 10px;
+            }
+
+            .blog-body,
+            .createdby,
+            .comment {
+                width: 95%;
+                max-width: 100%;
+            }
+
+            .comment input {
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 1rem;
+            }
+
+            .comment button {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .add-comments {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .createdby {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .createdby img {
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -150,38 +187,27 @@
                 <h1>Comments (<%= comments.length %>)</h1>
                 <% if (locals.user) { %>
                     <form method="post" action="/blog/comment/<%= blog.id %>" class="add-comments">
-
                         <input type="text" name="content" placeholder="Enter your comment here">
                         <button type="submit">Add</button>
                     </form>
                     <% } %>
-
                         <% comments.forEach(comment=> { %>
                             <div class="comment-box">
                                 <div class="cmmnt-profile-image">
                                     <img src="<%= comment.createdBy.profileImageURL %>" alt="">
                                     <div>
                                         <h5>
-                                            <%= comment.createdBy.fullname %> <br>
+                                            <%= comment.createdBy.fullname %>
                                         </h5>
                                         <p>
                                             <%= comment.content %>
                                         </p>
                                     </div>
-
-
                                 </div>
-
-
-
                             </div>
-
                             <% }) %>
             </div>
         </div>
-
-        </div>
-
 </body>
 
 </html>
