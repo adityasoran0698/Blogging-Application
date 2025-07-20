@@ -38,7 +38,6 @@
             border-radius: 15px;
             overflow: hidden;
             transition: all 0.3s ease;
-            display: flex;
             flex-direction: column;
             background-color: white;
         }
@@ -64,8 +63,7 @@
         h3 {
             margin: 1rem;
             font-size: 1.4rem;
-            word-wrap: break-word;
-            text-align: center;
+           
         }
 
         button {
@@ -127,7 +125,7 @@
         @media (max-width: 480px) {
             .blogs {
                 flex: 1 1 90%;
-                max-width: 100%;
+                max-width: 100%;/
             }
 
             .box {
@@ -138,31 +136,33 @@
 </head>
 
 <body>
-            <%- include('./partials/nav') %>
+    <%- include('./partials/nav') %>
 
-    <div class="container">
+        <div class="container">
 
-        <% if (blogs.length === 0) { %>
-            <div class="no-blogs">
-                <h2>📝 No blogs found!</h2>
-                <h3>Start by creating your first blog post.</h3>
-            </div>
-        <% } %>
-
-        <div class="box">
-            <% blogs.forEach(blog => { %>
-                <div class="blogs">
-                    <div class="coverimages">
-                        <img src="<%= blog.coverImageURL %>" alt="Cover Image" />
-                    </div>
-                    <h3><%= blog.title %></h3>
-                    <button type="submit">
-                        <a href="/blog/<%= blog._id %>" class="view-btn">View</a>
-                    </button>
+            <% if (blogs.length===0) { %>
+                <div class="no-blogs">
+                    <h2>📝 No blogs found!</h2>
+                    <h3>Start by creating your first blog post.</h3>
                 </div>
-            <% }) %>
+                <% } %>
+
+                    <div class="box">
+                        <% blogs.forEach(blog=> { %>
+                            <div class="blogs">
+                                <div class="coverimages">
+                                    <img src="<%= blog.coverImageURL %>" alt="Cover Image" />
+                                </div>
+                                <h3>
+                                    <%= blog.title %>
+                                </h3>
+                                <button type="submit">
+                                    <a href="/blog/<%= blog._id %>" class="view-btn">View</a>
+                                </button>
+                            </div>
+                            <% }) %>
+                    </div>
         </div>
-    </div>
 </body>
 
 </html>
